@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -10,17 +10,20 @@ interface Ship {
   home_port: string;
 }
 
+interface ShipsCollection {
+  ships: Ship[];
+}
+
 @Component({
   selector: 'app-ships-list',
   templateUrl: './ships-list.component.html',
   styleUrls: ['./ships-list.component.scss']
 })
-export class ShipsListComponent implements OnInit, OnDestroy {
+export class ShipsListComponent implements OnInit {
 
   constructor(private apollo: Apollo) { }
 
   ships$: Observable<Ship[]>;
-  subs: Subscription;
 
   ngOnInit(): void {
 
@@ -34,15 +37,11 @@ export class ShipsListComponent implements OnInit, OnDestroy {
       }
     `;
 
-    this.ships$ = this.apollo.watchQuery({
+    this.ships$ = this.apollo.watchQuery<ShipsCollection>({
       query
     }).valueChanges.pipe(
-      map((item: {data: {ships: Ship[]}}) => item.data.ships)
+      map((item: {data: ShipsCollection}) => item.data.ships)
     );
-  }
-
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
   }
 
 }

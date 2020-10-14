@@ -6,12 +6,12 @@
         SpaceX Ships
       </h1>
 
-      <ng-container *ngIf="ships$ | async as shipssss">
+      <!-- <ng-container *ngIf="ships$ | async as shipssss">
         {{ shipssss | json }}
-      </ng-container>
-      <!-- <div class="ships__container" *ngIf="ships$ | async as ships">
+      </ng-container> -->
+      <div class="ships__container" *ngIf="ships$ | async as ships">
         {{ ships | json }}
-      </div> -->
+      </div>
 
     </div> <!-- .container -->
   </section>
