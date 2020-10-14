@@ -1,0 +1,18 @@
+<main>
+  <section>
+    <div class="container">
+
+      <h1 class="title">
+        SpaceX Ships
+      </h1>
+
+      <ng-container *ngIf="ships$ | async as shipssss">
+        {{ shipssss | json }}
+      </ng-container>
+      <!-- <div class="ships__container" *ngIf="ships$ | async as ships">
+        {{ ships | json }}
+      </div> -->
+
+    </div> <!-- .container -->
+  </section>
+</main>
