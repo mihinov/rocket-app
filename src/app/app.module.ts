@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ShipsListComponent } from './ships-list/ships-list.component';
+import { ShipDetailsComponent } from './ship-details/ship-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ShipsListComponent
+    ShipsListComponent,
+    ShipDetailsComponent
   ],
   imports: [
     BrowserModule,

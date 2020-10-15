@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 
 interface Ship {
   __typename: string;
+  id: string;
   name: string;
   type: string;
   home_port: string;
@@ -30,6 +31,7 @@ export class ShipsListComponent implements OnInit {
     const query = gql`
       query getShips {
         ships {
+          id
           name
           type
           home_port
