@@ -36,7 +36,7 @@ export class ShipsListService {
       })
       .valueChanges.pipe(
         map(
-          (item: QuantityShips): any => {
+          (item: QuantityShips): number => {
             return item.data.shipsResult.result.totalCount;
           }
         )
