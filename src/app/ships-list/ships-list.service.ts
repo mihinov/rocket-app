@@ -4,12 +4,10 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 interface QuantityShips {
-  data: {
-    shipsResult: {
-      result: {
-        totalCount: number;
-      };
-    }
+  shipsResult: {
+    result: {
+      totalCount: number;
+    };
   };
 }
 
@@ -31,15 +29,11 @@ export class ShipsListService {
     `;
 
     return this.apollo
-      .watchQuery<number>({
+      .watchQuery<QuantityShips>({
         query,
       })
       .valueChanges.pipe(
-        map(
-          (item: QuantityShips): number => {
-            return item.data.shipsResult.result.totalCount;
-          }
-        )
+        map((item) => item.data.shipsResult.result.totalCount)
       );
   }
 }
