@@ -1,20 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Apollo, gql } from 'apollo-angular';
-import { Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { ShipsListService } from './ships-list.service';
-
-interface Ship {
-  __typename: string;
-  id: string;
-  name: string;
-  type: string;
-  home_port: string;
-}
-
-interface ShipsCollection {
-  ships: Ship[];
-}
+import { Ship } from '../shared/interfaces';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-ships-list',
@@ -22,32 +10,18 @@ interface ShipsCollection {
   styleUrls: ['./ships-list.component.scss'],
 })
 export class ShipsListComponent implements OnInit {
-  constructor(private apollo: Apollo, private service: ShipsListService) {}
+  constructor(private service: ShipsListService) {}
 
   ships$: Observable<Ship[]>;
+  quantity: number;
 
   ngOnInit(): void {
-    const query = gql`
-      query getShips {
-        ships {
-          id
-          name
-          type
-          home_port
-        }
-      }
-    `;
-
-    this.ships$ = this.apollo
-      .watchQuery<ShipsCollection>({
-        query,
-      })
-      .valueChanges.pipe(
-        map((item: { data: ShipsCollection }) => item.data.ships)
+    this.ships$ = this.service.getShipsAndQuantity({offset: 0, limit: 5})
+      .pipe(
+        tap(item => {
+          this.quantity = item.quantity;
+        }),
+        map(item => item.ships)
       );
-
-    this.service.getQuantityShips().subscribe((res) => {
-      console.log(res);
-    });
   }
 }
