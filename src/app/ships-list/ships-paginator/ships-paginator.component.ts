@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { OptionsShips } from '../../shared/interfaces';
+import { Component, Input, OnInit } from '@angular/core';
+import { OptionsShips, OptionsPaginator } from '../../shared/interfaces';
 
 @Component({
   selector: 'app-ships-paginator',
@@ -10,7 +10,22 @@ export class ShipsPaginatorComponent implements OnInit {
 
   constructor() { }
 
+  @Input() set options(optionsPaginator: OptionsPaginator) {
+    if (optionsPaginator) {
+      console.log(optionsPaginator);
+    }
+  }
+
   ngOnInit(): void {
+  }
+
+
+  backClick(): void {
+
+  }
+
+  forwardClick(): void {
+
   }
 
 }

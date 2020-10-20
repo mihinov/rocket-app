@@ -33,3 +33,8 @@ export interface ShipsAndQuantity {
   ships: Ship[];
   quantity: number;
 }
+
+export interface OptionsPaginator {
+  quantity: number;
+  options: OptionsShips;
+}
