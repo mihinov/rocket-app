@@ -7,12 +7,16 @@ import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ShipsListComponent } from './ships-list/ships-list.component';
 import { ShipDetailsComponent } from './ship-details/ship-details.component';
+import { ShipsFilterComponent } from './ships-list/ships-filter/ships-filter.component';
+import { ShipsPaginatorComponent } from './ships-list/ships-paginator/ships-paginator.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ShipsListComponent,
-    ShipDetailsComponent
+    ShipDetailsComponent,
+    ShipsFilterComponent,
+    ShipsPaginatorComponent
   ],
   imports: [
     BrowserModule,

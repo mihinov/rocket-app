@@ -9,7 +9,7 @@
       <!-- <ng-container *ngIf="ships$ | async as shipssss">
         {{ shipssss | json }}
       </ng-container> -->
-      <div class="ship__container" *ngIf="ships$ | async as ships">
+      <div class="ship__container" *ngIf="ships.length !== 0">
         <div class="ship__item" *ngFor="let ship of ships">
           <a class="ship__title" [routerLink]="['/', ship.id]">
             <span>{{ ship.name }}</span>
@@ -27,8 +27,9 @@
               <span>{{ ship.home_port }}</span>
             </div>
           </div>
-        </div>
-      </div>
+        </div> <!-- .ship__item -->
+      </div> <!-- .ship__container -->
+      <app-ships-paginator></app-ships-paginator>
 
     </div> <!-- .container -->
   </section>
