@@ -37,4 +37,6 @@ export interface ShipsAndQuantity {
 export interface OptionsPaginator {
   quantity: number;
   options: OptionsShips;
+  currentPage: number;
+  maxPage: number;
 }

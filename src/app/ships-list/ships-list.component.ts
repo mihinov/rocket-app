@@ -10,7 +10,7 @@ import { map, tap } from 'rxjs/operators';
   styleUrls: ['./ships-list.component.scss'],
 })
 export class ShipsListComponent implements OnInit, OnDestroy {
-  constructor(private service: ShipsListService) {}
+  constructor(private shipListService: ShipsListService) {}
 
   subs: Subscription;
   ships: Ship[];
@@ -19,8 +19,12 @@ export class ShipsListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const optionsShips: OptionsShips = { offset: 0, limit: 5 };
-    this.subs = this.service
-      .getShipsAndQuantity(optionsShips)
+    this.getRecords(optionsShips);
+  }
+
+  getRecords(options: OptionsShips): void {
+    this.subs = this.shipListService
+      .getShipsAndQuantity(options)
       .pipe(
         tap((item) => {
           this.quantity = item.quantity;
@@ -31,7 +35,11 @@ export class ShipsListComponent implements OnInit, OnDestroy {
         this.ships = item;
         this.optionsPaginator = { // Опции для пагинатора
           quantity: this.quantity,
-          options: optionsShips
+          options,
+          currentPage: Math.floor(
+            (options.limit + options.offset) / options.limit
+          ),
+          maxPage: Math.ceil(this.quantity / options.limit),
         };
       });
   }

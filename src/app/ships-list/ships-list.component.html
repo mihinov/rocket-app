@@ -29,7 +29,10 @@
           </div>
         </div> <!-- .ship__item -->
       </div> <!-- .ship__container -->
-      <app-ships-paginator [options]="optionsPaginator"></app-ships-paginator>
+      <app-ships-paginator
+        [options]="optionsPaginator"
+        (flipping)="getRecords($event)"
+      ></app-ships-paginator>
 
     </div> <!-- .container -->
   </section>

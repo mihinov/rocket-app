@@ -1,3 +1,46 @@
 .flex {
   font-size: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.flex > * + * {
+  margin-left: 20px;
+}
+
+.flex button {
+  display: inline-block;
+  border: none;
+  background-color: transparent;
+  font-size: 26px;
+  outline: none;
+  cursor: pointer;
+  transform-origin: center center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.flex button.disabled {
+  cursor: not-allowed;
+  transition: none;
+}
+
+.flex button.disabled svg {
+  fill: #e6e6e6;
+}
+
+.flex button.disabled:hover {
+  transform: none;
+}
+
+.flex button:hover {
+  transform: scale(1.5);
+}
+
+.flex button svg {
+  display: block;
+  width: 20px;
+}
+
+.flex button:nth-of-type(2) svg {
+  transform: scaleX(-1);
 }

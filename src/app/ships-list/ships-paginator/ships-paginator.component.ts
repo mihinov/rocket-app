@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { OptionsShips, OptionsPaginator } from '../../shared/interfaces';
 
 @Component({
@@ -10,9 +10,12 @@ export class ShipsPaginatorComponent implements OnInit {
 
   constructor() { }
 
+  optionsPaginator: OptionsPaginator;
+  @Output() flipping = new EventEmitter<OptionsShips>();
+
   @Input() set options(optionsPaginator: OptionsPaginator) {
     if (optionsPaginator) {
-      console.log(optionsPaginator);
+      this.optionsPaginator = optionsPaginator;
     }
   }
 
@@ -21,11 +24,21 @@ export class ShipsPaginatorComponent implements OnInit {
 
 
   backClick(): void {
-
+    if (this.optionsPaginator &&
+      this.optionsPaginator.currentPage !== 1) {
+      const optionsShips = Object.assign({}, this.optionsPaginator.options);
+      optionsShips.offset -= optionsShips.limit;
+      this.flipping.emit(optionsShips);
+    }
   }
 
   forwardClick(): void {
-
+    if (this.optionsPaginator &&
+      (this.optionsPaginator.currentPage + 1) <= this.optionsPaginator.maxPage) {
+      const optionsShips = Object.assign({}, this.optionsPaginator.options);
+      optionsShips.offset += optionsShips.limit;
+      this.flipping.emit(optionsShips);
+    }
   }
 
 }
