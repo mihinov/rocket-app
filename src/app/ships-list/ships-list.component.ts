@@ -32,7 +32,7 @@ export class ShipsListComponent implements OnInit, OnDestroy {
         this.optionsPaginator = { // Опции для пагинатора
           quantity: this.quantity,
           options: optionsShips
-        }
+        };
       });
   }
 
