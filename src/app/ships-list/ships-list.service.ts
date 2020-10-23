@@ -2,16 +2,8 @@ import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import {
-  ShipsAndQuantityResponse,
-  ShipsAndQuantity,
-} from '../shared/interfaces';
-import {
-  QuantityShips,
-  OptionsShips,
-  Ship,
-  ShipsCollection,
-} from '../shared/interfaces';
+import { ShipsAndQuantityResponse, ShipsAndQuantity} from '../shared/interfaces';
+import { QuantityShips, OptionsShips, Ship, ShipsCollection } from '../shared/interfaces';
 
 @Injectable({
   providedIn: 'root',
