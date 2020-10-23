@@ -6,9 +6,6 @@
         SpaceX Ships
       </h1>
 
-      <!-- <ng-container *ngIf="ships$ | async as shipssss">
-        {{ shipssss | json }}
-      </ng-container> -->
       <div class="ship__container">
         <div class="ship__item" *ngFor="let ship of ships">
           <a class="ship__title" [routerLink]="['/', ship.id]">
