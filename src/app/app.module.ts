@@ -9,6 +9,7 @@ import { ShipsListComponent } from './ships-list/ships-list.component';
 import { ShipDetailsComponent } from './ship-details/ship-details.component';
 import { ShipsFilterComponent } from './ships-list/ships-filter/ships-filter.component';
 import { ShipsPaginatorComponent } from './ships-list/ships-paginator/ships-paginator.component';
+import { LoaderComponent } from './shared/components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ShipsPaginatorComponent } from './ships-list/ships-paginator/ships-pagi
     ShipsListComponent,
     ShipDetailsComponent,
     ShipsFilterComponent,
-    ShipsPaginatorComponent
+    ShipsPaginatorComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
