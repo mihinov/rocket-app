@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 export class ShipDetailsService {
   constructor(private apollo: Apollo) {}
 
-  getShipById(id: string): Observable<Ship> {
+  getShipById(id: string): Observable<Ship[]> {
     const query = gql`
       query getShipById($findStr: String) {
         ships {
@@ -28,7 +28,7 @@ export class ShipDetailsService {
       }
     `;
 
-    return this.apollo.watchQuery<Ship>({
+    return this.apollo.watchQuery<Ship[]>({
       query,
       variables: {
         findStr: id
