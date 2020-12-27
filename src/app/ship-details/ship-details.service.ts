@@ -2,16 +2,17 @@ import { Observable } from 'rxjs';
 import { Ship } from '../shared/interfaces';
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
-export class shipDetailsService {
+export class ShipDetailsService {
   constructor(private apollo: Apollo) {}
 
   getShipById(id: string): Observable<Ship> {
     const query = gql`
-      query getShipById($findStr: string) {
+      query getShipById($findStr: String) {
         ships {
           find: {
             id: $findStr
@@ -32,6 +33,6 @@ export class shipDetailsService {
       variables: {
         findStr: id
       }
-    }).valueChanges;
+    }).valueChanges.pipe(map(item => item.data));
   }
 }
