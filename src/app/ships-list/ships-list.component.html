@@ -1,36 +1,38 @@
-<main>
-  <section>
-    <div class="container">
+<h1 class="title">
+  SpaceX Ships
+</h1>
 
-      <h1 class="title">
-        SpaceX Ships
-      </h1>
+<div class="ship__container">
+  <div *ngIf="ships.length !== 0; else loader">
+    <div class="ship__item" *ngFor="let ship of ships">
+      <a class="ship__title" [routerLink]="['ships/', ship.id]">
+        <span>{{ ship.name }}</span>
+        <svg class="ship__arrow" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <path d="m37.379 12.552c-.799-.761-2.066-.731-2.827.069-.762.8-.73 2.066.069 2.828l15.342 14.551h-39.963c-1.104 0-2 .896-2 2s.896 2 2 2h39.899l-15.278 14.552c-.8.762-.831 2.028-.069 2.828.393.412.92.62 1.448.62.496 0 .992-.183 1.379-.552l17.449-16.62c.756-.755 1.172-1.759 1.172-2.828s-.416-2.073-1.207-2.862z"/>
+        </svg>
+      </a>
+      <div class="ship__info">
+        <div class="ship__info__item">
+          <span>Тип</span>
+          <span>{{ ship.type }}</span>
+        </div>
+        <div class="ship__info__item">
+          <span>Порт</span>
+          <span>{{ ship.home_port }}</span>
+        </div>
+      </div>
+    </div> <!-- .ship__item -->
+  </div>
 
-      <div class="ship__container">
-        <div class="ship__item" *ngFor="let ship of ships">
-          <a class="ship__title" [routerLink]="['/', ship.id]">
-            <span>{{ ship.name }}</span>
-            <svg class="ship__arrow" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-              <path d="m37.379 12.552c-.799-.761-2.066-.731-2.827.069-.762.8-.73 2.066.069 2.828l15.342 14.551h-39.963c-1.104 0-2 .896-2 2s.896 2 2 2h39.899l-15.278 14.552c-.8.762-.831 2.028-.069 2.828.393.412.92.62 1.448.62.496 0 .992-.183 1.379-.552l17.449-16.62c.756-.755 1.172-1.759 1.172-2.828s-.416-2.073-1.207-2.862z"/>
-            </svg>
-          </a>
-          <div class="ship__info">
-            <div class="ship__info__item">
-              <span>Тип</span>
-              <span>{{ ship.type }}</span>
-            </div>
-            <div class="ship__info__item">
-              <span>Порт</span>
-              <span>{{ ship.home_port }}</span>
-            </div>
-          </div>
-        </div> <!-- .ship__item -->
-      </div> <!-- .ship__container -->
-      <app-ships-paginator
-        [options]="optionsPaginator"
-        (flipping)="getRecords($event)"
-      ></app-ships-paginator>
+  <ng-template #loader>
+    <div class="loader">
+      <app-loader></app-loader>
+    </div>
+  </ng-template>
 
-    </div> <!-- .container -->
-  </section>
-</main>
+</div> <!-- .ship__container -->
+
+<app-ships-paginator
+  [options]="optionsPaginator"
+  (flipping)="getRecords($event)"
+></app-ships-paginator>

@@ -11,11 +11,16 @@ export class ShipsPaginatorComponent implements OnInit {
   constructor() { }
 
   optionsPaginator: OptionsPaginator;
+  isEnabledBack = false;
+  isEnabledForward = false;
+
   @Output() flipping = new EventEmitter<OptionsShips>();
 
   @Input() set options(optionsPaginator: OptionsPaginator) {
     if (optionsPaginator) {
       this.optionsPaginator = optionsPaginator;
+      this.isEnabledBack = this.optionsPaginator && this.optionsPaginator.currentPage !== 1;
+      this.isEnabledForward = this.optionsPaginator && (this.optionsPaginator.currentPage + 1) <= this.optionsPaginator.maxPage;
     }
   }
 
@@ -24,19 +29,21 @@ export class ShipsPaginatorComponent implements OnInit {
 
 
   backClick(): void {
-    if (this.optionsPaginator &&
-      this.optionsPaginator.currentPage !== 1) {
+    if (this.optionsPaginator && this.optionsPaginator.currentPage !== 1) {
       const optionsShips = Object.assign({}, this.optionsPaginator.options);
       optionsShips.offset -= optionsShips.limit;
+      this.isEnabledBack = false;
+      this.isEnabledForward = false;
       this.flipping.emit(optionsShips);
     }
   }
 
   forwardClick(): void {
-    if (this.optionsPaginator &&
-      (this.optionsPaginator.currentPage + 1) <= this.optionsPaginator.maxPage) {
+    if (this.optionsPaginator && (this.optionsPaginator.currentPage + 1) <= this.optionsPaginator.maxPage) {
       const optionsShips = Object.assign({}, this.optionsPaginator.options);
       optionsShips.offset += optionsShips.limit;
+      this.isEnabledBack = false;
+      this.isEnabledForward = false;
       this.flipping.emit(optionsShips);
     }
   }

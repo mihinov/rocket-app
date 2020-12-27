@@ -6,19 +6,21 @@ import { AppComponent } from './app.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ShipsListComponent } from './ships-list/ships-list.component';
-import { ShipDetailsComponent } from './ship-details/ship-details.component';
-import { ShipsFilterComponent } from './ships-list/ships-filter/ships-filter.component';
 import { ShipsPaginatorComponent } from './ships-list/ships-paginator/ships-paginator.component';
 import { LoaderComponent } from './shared/components/loader/loader.component';
+import { ShipsFilterComponent } from './ships-filter/ships-filter.component';
+import { PageShipsComponent } from './page-ships/page-ships.component';
+import { ShipDetailsComponent } from './ship-details/ship-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ShipsListComponent,
-    ShipDetailsComponent,
-    ShipsFilterComponent,
     ShipsPaginatorComponent,
-    LoaderComponent
+    LoaderComponent,
+    ShipsFilterComponent,
+    PageShipsComponent,
+    ShipDetailsComponent
   ],
   imports: [
     BrowserModule,

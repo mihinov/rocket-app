@@ -21,7 +21,6 @@
 
 .flex button.disabled {
   cursor: not-allowed;
-  transition: none;
 }
 
 .flex button.disabled svg {
@@ -39,6 +38,7 @@
 .flex button svg {
   display: block;
   width: 20px;
+  transition: fill 0.2s ease-in-out;
 }
 
 .flex button:nth-of-type(2) svg {

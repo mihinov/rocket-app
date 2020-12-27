@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { ShipsListService } from './ships-list.service';
 import { Ship, OptionsShips, OptionsPaginator } from '../shared/interfaces';
-import { map, tap } from 'rxjs/operators';
+import { delay, map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-ships-list',
@@ -23,6 +23,7 @@ export class ShipsListComponent implements OnInit, OnDestroy {
   }
 
   getRecords(options: OptionsShips): void {
+    this.ships = [];
     this.subs = this.shipListService
       .getShipsAndQuantity(options)
       .pipe(
@@ -41,6 +42,7 @@ export class ShipsListComponent implements OnInit, OnDestroy {
           ),
           maxPage: Math.ceil(this.quantity / options.limit),
         };
+        console.log(this.ships);
       });
   }
 
