@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+
+.container_main {
+  margin: 0;
+  max-width: none;
+}
+
+app-ships-list {
+  flex: 1;
+  --pad: calc(20px + (50 - 20) * ((100vw - 320px) / (1200 - 320)) );
+  padding: var(--pad) 0 0 var(--pad);
+}

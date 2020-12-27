@@ -18,6 +18,8 @@ export interface Ship {
   name: string;
   type: string;
   home_port: string;
+  missions?: string[];
+  year_built?: string;
 }
 
 export interface ShipsCollection {
