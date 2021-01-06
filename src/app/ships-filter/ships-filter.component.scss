@@ -1,4 +1,27 @@
 :host {
   display: block;
   min-height: 100vh;
+  padding: 52px 32px;
+  min-width: 300px;
+  border-left: 1px solid #A5A5A5;
+}
+
+
+.filter__form > * + *, .filter > * + * {
+  margin-top: 15px;
+}
+
+.filter__header {
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.checbox-input {
+  user-select: none;
+}
+
+.checkbox-group {
+  padding: 17px;
+  border-radius: 4px;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.23), 0px 3px 6px rgba(0, 0, 0, 0.16);
 }

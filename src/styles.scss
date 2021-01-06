@@ -6,6 +6,10 @@
   padding: 0;
 }
 
+:root {
+  --blue: rgba(52, 124, 255, 1);
+}
+
 html {
   height: 100%;
 }
@@ -18,6 +22,45 @@ body {
 img {
   display: block;
   max-width: 100%;
+}
+
+input[type="text"] {
+  display: block;
+  width: 100%;
+}
+
+.input-group {
+  position: relative;
+}
+
+.input-text {
+  caret-color: var(--blue);
+  border: none;
+  outline: none;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 5px 10px 5px 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.input-text::placeholder {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.input-text-after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);;
+  width: 100%;
+  height: 1px;
+  transition: background-color 0.2s linear;
+}
+
+.input-text:focus +.input-text-after {
+  background-color: var(--blue);
 }
 
 .container {
@@ -34,4 +77,10 @@ img {
 
 .flex_direction-column {
   flex-direction: column;
+}
+
+
+
+.mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element, .mat-checkbox:active:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element, .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: var(--blue);
 }

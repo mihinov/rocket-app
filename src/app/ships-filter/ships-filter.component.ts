@@ -10,6 +10,7 @@ export class ShipsFilterComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }

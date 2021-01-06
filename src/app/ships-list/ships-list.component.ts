@@ -42,7 +42,6 @@ export class ShipsListComponent implements OnInit, OnDestroy {
           ),
           maxPage: Math.ceil(this.quantity / options.limit),
         };
-        console.log(this.ships);
       });
   }
 

@@ -11,6 +11,8 @@ import { LoaderComponent } from './shared/components/loader/loader.component';
 import { ShipsFilterComponent } from './ships-filter/ships-filter.component';
 import { PageShipsComponent } from './page-ships/page-ships.component';
 import { ShipDetailsComponent } from './ship-details/ship-details.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { ShipDetailsComponent } from './ship-details/ship-details.component';
     BrowserModule,
     AppRoutingModule,
     GraphQLModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]
