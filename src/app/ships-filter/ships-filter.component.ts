@@ -15,8 +15,8 @@ export class ShipsFilterComponent implements OnInit {
   ngOnInit(): void {
     this.formFilter = new FormGroup({
       checkboxGroup: new FormGroup({
-       'checkbox-port-canaveral': new FormControl(true),
-       'checkbox-port-of-los-angeles': new FormControl(true),
+        'checkbox-port-canaveral': new FormControl(true),
+        'checkbox-port-of-los-angeles': new FormControl(true),
         'checkbox-fort-lauderdale': new FormControl(false)
       })
     });
