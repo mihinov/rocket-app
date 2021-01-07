@@ -1,22 +1,33 @@
 <div class="filter">
   <p class="filter__header">Фильтры</p>
-  <form class="filter__form">
+  <form class="filter__form" [formGroup]="formFilter">
 
     <div class="filter__search input-group">
       <input class="input-text" type="text" placeholder="Название">
       <div class="input-text-after"></div>
     </div>
 
-    <div class="checkbox-group">
+    <div class="checkbox-port">
+      <div class="checkbox-port__subtitle">Порт</div>
+      <div class="checkbox-port__text"></div>
+    </div>
 
-      <div class="checbox-input">
-        <mat-checkbox>Scales 2</mat-checkbox>
+    <div class="checkbox-group" formGroupName="checkboxGroup">
+
+      <div class="checkbox-input">
+        <mat-checkbox formControlName="checkbox-port-canaveral" (change)="onChangeCheckbox($event)">
+          Port Canaveral
+        </mat-checkbox>
       </div>
-      <div class="checbox-input">
-        <mat-checkbox>Scales 2</mat-checkbox>
+      <div class="checkbox-input">
+        <mat-checkbox formControlName="checkbox-port-of-los-angeles" (change)="onChangeCheckbox($event)">
+          Port of Los Angeles
+        </mat-checkbox>
       </div>
-      <div class="checbox-input">
-        <mat-checkbox>Scales 2</mat-checkbox>>
+      <div class="checkbox-input">
+        <mat-checkbox formControlName="checkbox-fort-lauderdale" (change)="onChangeCheckbox($event)">
+          Fort Lauderdale
+        </mat-checkbox>
       </div>
 
     </div>
