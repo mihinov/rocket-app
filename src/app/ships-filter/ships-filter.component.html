@@ -7,29 +7,60 @@
       <div class="input-text-after"></div>
     </div>
 
-    <div class="checkbox-port">
-      <div class="checkbox-port__subtitle">Порт</div>
-      <div class="checkbox-port__text"></div>
+    <div class="checkbox__container">
+
+      <div class="checkbox-port">
+        <div class="checkbox-port__subtitle">Порт</div>
+        <div class="checkbox-port__text">
+          <span *ngIf="activeCheckboxes !== 0; else noCheckboxes">
+            Выбраны {{ activeCheckboxes }}
+          </span>
+          <ng-template #noCheckboxes>
+            <span>Ничего не выбрано</span>
+          </ng-template>
+        </div>
+      </div>
+
+      <div class="checkbox-group" formGroupName="checkboxGroup">
+
+        <div class="checkbox-group__line" [ngClass]='{
+          active: activeCheckboxes !== 0
+        }'>
+
+        </div>
+
+        <div class="checkbox-input">
+          <mat-checkbox formControlName="checkbox-port-canaveral" (change)="onChangeCheckbox($event)">
+            Port Canaveral
+          </mat-checkbox>
+        </div>
+        <div class="checkbox-input">
+          <mat-checkbox formControlName="checkbox-port-of-los-angeles" (change)="onChangeCheckbox($event)">
+            Port of Los Angeles
+          </mat-checkbox>
+        </div>
+        <div class="checkbox-input">
+          <mat-checkbox formControlName="checkbox-fort-lauderdale" (change)="onChangeCheckbox($event)">
+            Fort Lauderdale
+          </mat-checkbox>
+        </div>
+
+      </div> <!-- .checkbox-group -->
+    </div> <!-- .checkbox__container -->
+
+    <div class="type">
+      <div class="type__title">
+        Тип
+      </div>
+      <mat-radio-group
+        formControlName="radio-type"
+        class="type__radio-container"
+      >
+        <mat-radio-button class="type__button" *ngFor="let typeShip of typeShips" [value]="typeShip">
+          {{ typeShip }}
+        </mat-radio-button>
+      </mat-radio-group>
     </div>
 
-    <div class="checkbox-group" formGroupName="checkboxGroup">
-
-      <div class="checkbox-input">
-        <mat-checkbox formControlName="checkbox-port-canaveral" (change)="onChangeCheckbox($event)">
-          Port Canaveral
-        </mat-checkbox>
-      </div>
-      <div class="checkbox-input">
-        <mat-checkbox formControlName="checkbox-port-of-los-angeles" (change)="onChangeCheckbox($event)">
-          Port of Los Angeles
-        </mat-checkbox>
-      </div>
-      <div class="checkbox-input">
-        <mat-checkbox formControlName="checkbox-fort-lauderdale" (change)="onChangeCheckbox($event)">
-          Fort Lauderdale
-        </mat-checkbox>
-      </div>
-
-    </div>
   </form>
-</div>
+</div> <!-- .filter -->

@@ -8,21 +8,27 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class ShipsFilterComponent implements OnInit {
 
-  formFilter: FormGroup = new FormGroup({
-    checkboxGroup: new FormGroup({
-      'checkbox-port-canaveral': new FormControl(true),
-      'checkbox-port-of-los-angeles': new FormControl(true),
-      'checkbox-fort-lauderdale': new FormControl(false)
-    })
-  });
+  formFilter: FormGroup;
+  activeCheckboxes: number;
+  activatedCheckbox: boolean;
+  typeShips: string[] = ['Barge', 'Cargo', 'High Speed Craft', 'Tug'];
 
   constructor() { }
 
   ngOnInit(): void {
+    this.formFilter = new FormGroup({
+      checkboxGroup: new FormGroup({
+        'checkbox-port-canaveral': new FormControl(true),
+        'checkbox-port-of-los-angeles': new FormControl(true),
+        'checkbox-fort-lauderdale': new FormControl(false)
+      })
+    });
+    this.onChangeCheckbox();
   }
 
   onChangeCheckbox(): void {
-    console.log(Object.values(this.formFilter.controls.checkboxGroup.controls).map(item => item.value));
+    this.activeCheckboxes = Object.values(this.formFilter.get('checkboxGroup').value).filter(item => item === true).length;
+    this.activatedCheckbox = this.activeCheckboxes !== 0;
   }
 
 }

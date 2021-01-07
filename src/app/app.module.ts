@@ -6,6 +6,8 @@ import { GraphQLModule } from './graphql.module';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatRadioModule } from '@angular/material/radio';
+
 import { AppComponent } from './app.component';
 import { ShipsListComponent } from './ships-list/ships-list.component';
 import { ShipsPaginatorComponent } from './ships-list/ships-paginator/ships-paginator.component';
@@ -13,6 +15,7 @@ import { LoaderComponent } from './shared/components/loader/loader.component';
 import { ShipsFilterComponent } from './ships-filter/ships-filter.component';
 import { PageShipsComponent } from './page-ships/page-ships.component';
 import { ShipDetailsComponent } from './ship-details/ship-details.component';
+
 
 @NgModule({
   declarations: [
@@ -31,7 +34,8 @@ import { ShipDetailsComponent } from './ship-details/ship-details.component';
     HttpClientModule,
     BrowserAnimationsModule,
     MatCheckboxModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]
