@@ -13,10 +13,12 @@ export class FilterCheckboxAction implements Action {
 
 export class FilterRadioAction implements Action {
   readonly type = filterActionsType.radio;
+  constructor(public payload: string) {}
 }
 
 export class FilterTextAction implements Action {
   readonly type = filterActionsType.text;
+  constructor(public payload: string) {}
 }
 
 export type FilterActions = FilterCheckboxAction | FilterRadioAction | FilterTextAction;
