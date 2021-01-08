@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
+interface TypeShips {
+  title: string;
+  checked?: boolean;
+}
+
 @Component({
   selector: 'app-ships-filter',
   templateUrl: './ships-filter.component.html',
@@ -11,7 +16,12 @@ export class ShipsFilterComponent implements OnInit {
   formFilter: FormGroup;
   activeCheckboxes: number;
   activatedCheckbox: boolean;
-  typeShips: string[] = ['Barge', 'Cargo', 'High Speed Craft', 'Tug'];
+  typeShips: TypeShips[] = [
+    {title: 'Barge'},
+    {title: 'Cargo'},
+    {title: 'High Speed Craft', checked: true},
+    {title: 'Tug'}
+  ];
 
   constructor() { }
 

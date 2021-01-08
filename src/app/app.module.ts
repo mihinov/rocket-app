@@ -15,6 +15,7 @@ import { LoaderComponent } from './shared/components/loader/loader.component';
 import { ShipsFilterComponent } from './ships-filter/ships-filter.component';
 import { PageShipsComponent } from './page-ships/page-ships.component';
 import { ShipDetailsComponent } from './ship-details/ship-details.component';
+import { StoreModule } from '@ngrx/store';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { ShipDetailsComponent } from './ship-details/ship-details.component';
     BrowserAnimationsModule,
     MatCheckboxModule,
     ReactiveFormsModule,
-    MatRadioModule
+    MatRadioModule,
+    StoreModule.forRoot({}, {})
   ],
   providers: [],
   bootstrap: [AppComponent]
