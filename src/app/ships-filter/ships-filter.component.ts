@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { FilterState } from '../reducers/filter/fiter.reducer';
 import { selectRadio } from '../reducers/filter/filter.selector';
 import { Observable } from 'rxjs';
 import { FilterRadioAction } from '../reducers/filter/filter.actions';
-
-interface TypeShip {
-  title: string;
-  checked?: boolean;
-}
+import { TypeShip } from '../shared/interfaces';
+import { MatRadioChange } from '@angular/material/radio';
 
 @Component({
   selector: 'app-ships-filter',
@@ -34,17 +31,15 @@ export class ShipsFilterComponent implements OnInit {
 
   ngOnInit(): void {
     this.radio$.subscribe(title => {
-      this.typeShips.map(item => item.title === title ? item.checked = true : false);
-      this.generateForm(this.typeShips);
+      const typeShipChecked = this.typeShips.find(item => item.title === title);
+      this.generateForm(typeShipChecked);
     }).unsubscribe();
-
 
     this.onChangeCheckbox();
   }
 
-  generateForm(typeShips: TypeShip[]): void {
-    const typeShipChecked = typeShips.find(item => item.checked);
-    console.log(typeShipChecked);
+  generateForm(typeShipChecked: TypeShip): void {
+
     this.formFilter = new FormGroup({
       checkboxGroup: new FormGroup({
         'Port Canaveral': new FormControl(true),
@@ -60,10 +55,9 @@ export class ShipsFilterComponent implements OnInit {
     this.activatedCheckbox = this.activeCheckboxes !== 0;
   }
 
-  onChangeRadio(): void {
-    const textRadio = this.formFilter.get('radio-type').value;
-    console.log(textRadio);
-    // this.store$.dispatch(new FilterRadioAction(textRadio));
+  onChangeRadio($event: MatRadioChange): void {
+    const textRadio = $event.value;
+    this.store$.dispatch(new FilterRadioAction(textRadio));
   }
 
 }

@@ -56,7 +56,7 @@
         formControlName="radio-type"
         class="type__radio-container"
       >
-        <mat-radio-button class="type__button" *ngFor="let typeShip of typeShips" [value]="typeShip.title" [checked]="typeShip.checked" (change)="onChangeRadio()">
+        <mat-radio-button class="type__button" *ngFor="let typeShip of typeShips" [value]="typeShip.title" (change)="onChangeRadio($event)">
           {{ typeShip.title }}
         </mat-radio-button>
       </mat-radio-group>

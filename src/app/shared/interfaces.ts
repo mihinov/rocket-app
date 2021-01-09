@@ -42,3 +42,8 @@ export interface OptionsPaginator {
   currentPage: number;
   maxPage: number;
 }
+
+export interface TypeShip {
+  title: string;
+  checked?: boolean;
+}
