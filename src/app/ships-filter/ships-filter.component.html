@@ -29,7 +29,7 @@
 
         </div>
 
-        <div class="checkbox-input">
+        <!-- <div class="checkbox-input">
           <mat-checkbox formControlName="Port Canaveral" (change)="onChangeCheckbox()">
             Port Canaveral
           </mat-checkbox>
@@ -42,6 +42,12 @@
         <div class="checkbox-input">
           <mat-checkbox formControlName="Fort Lauderdale" (change)="onChangeCheckbox()">
             Fort Lauderdale
+          </mat-checkbox>
+        </div> -->
+
+        <div class="checkbox-input" *ngFor="let item of portShips">
+          <mat-checkbox [formControlName]="item" (change)="onChangeCheckbox()">
+            {{ item }}
           </mat-checkbox>
         </div>
 
@@ -56,8 +62,8 @@
         formControlName="radio-type"
         class="type__radio-container"
       >
-        <mat-radio-button class="type__button" *ngFor="let typeShip of typeShips" [value]="typeShip.title" (change)="onChangeRadio($event)">
-          {{ typeShip.title }}
+        <mat-radio-button class="type__button" *ngFor="let typeShip of typeShips" [value]="typeShip" (change)="onChangeRadio($event)">
+          {{ typeShip }}
         </mat-radio-button>
       </mat-radio-group>
     </div>

@@ -9,7 +9,7 @@ export interface FilterState {
 
 const initialState: FilterState = {
   radio: 'High Speed Craft',
-  checkbox: [],
+  checkbox: ['Port Canaveral', 'Port of Los Angeles'],
   text: '',
 };
 
