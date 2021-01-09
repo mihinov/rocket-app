@@ -30,17 +30,17 @@
         </div>
 
         <div class="checkbox-input">
-          <mat-checkbox formControlName="checkbox-port-canaveral" (change)="onChangeCheckbox()">
+          <mat-checkbox formControlName="Port Canaveral" (change)="onChangeCheckbox()">
             Port Canaveral
           </mat-checkbox>
         </div>
         <div class="checkbox-input">
-          <mat-checkbox formControlName="checkbox-port-of-los-angeles" (change)="onChangeCheckbox()">
+          <mat-checkbox formControlName="Port of Los Angeles" (change)="onChangeCheckbox()">
             Port of Los Angeles
           </mat-checkbox>
         </div>
         <div class="checkbox-input">
-          <mat-checkbox formControlName="checkbox-fort-lauderdale" (change)="onChangeCheckbox()">
+          <mat-checkbox formControlName="Fort Lauderdale" (change)="onChangeCheckbox()">
             Fort Lauderdale
           </mat-checkbox>
         </div>
@@ -56,7 +56,7 @@
         formControlName="radio-type"
         class="type__radio-container"
       >
-        <mat-radio-button class="type__button" *ngFor="let typeShip of typeShips" [value]="typeShip" [checked]="typeShip.checked">
+        <mat-radio-button class="type__button" *ngFor="let typeShip of typeShips" [value]="typeShip.title" [checked]="typeShip.checked" (change)="onChangeRadio()">
           {{ typeShip.title }}
         </mat-radio-button>
       </mat-radio-group>

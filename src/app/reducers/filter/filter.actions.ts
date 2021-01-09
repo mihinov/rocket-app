@@ -8,7 +8,7 @@ export enum filterActionsType {
 
 export class FilterCheckboxAction implements Action {
   readonly type = filterActionsType.checkbox;
-  constructor(public payload: string) {}
+  constructor(public payload: string[]) {}
 }
 
 export class FilterRadioAction implements Action {

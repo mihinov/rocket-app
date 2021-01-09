@@ -9,8 +9,8 @@ export interface FilterState {
 
 const initialState: FilterState = {
   radio: 'High Speed Craft',
+  checkbox: [],
   text: '',
-  checkbox: []
 };
 
 export const filterReducer = (state = initialState, action: FilterActions) => {

@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 import { AppComponent } from './app.component';
 import { ShipsListComponent } from './ships-list/ships-list.component';
@@ -16,6 +17,9 @@ import { ShipsFilterComponent } from './ships-filter/ships-filter.component';
 import { PageShipsComponent } from './page-ships/page-ships.component';
 import { ShipDetailsComponent } from './ship-details/ship-details.component';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment.prod';
+import { reducers, metaReducers } from './reducers/index';
 
 
 @NgModule({
@@ -37,7 +41,15 @@ import { StoreModule } from '@ngrx/store';
     MatCheckboxModule,
     ReactiveFormsModule,
     MatRadioModule,
-    StoreModule.forRoot({}, {})
+    StoreRouterConnectingModule.forRoot(),
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true
+      }
+    }),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [],
   bootstrap: [AppComponent]
