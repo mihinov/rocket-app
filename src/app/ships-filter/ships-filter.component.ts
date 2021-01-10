@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { FilterState } from '../reducers/filter/fiter.reducer';
-import { selectRadio, selectCheckbox } from '../reducers/filter/filter.selector';
+import { selectRadio, selectCheckbox, selectText } from '../reducers/filter/filter.selector';
 import { Observable } from 'rxjs';
-import { FilterRadioAction } from '../reducers/filter/filter.actions';
+import { FilterRadioAction, FilterTextAction, FilterCheckboxAction } from '../reducers/filter/filter.actions';
 import { MatRadioChange } from '@angular/material/radio';
 
 @Component({
@@ -16,6 +16,7 @@ export class ShipsFilterComponent implements OnInit {
 
   radio$: Observable<string> = this.store$.pipe(select(selectRadio));
   checkbox$: Observable<string[]> = this.store$.pipe(select(selectCheckbox));
+  text$: Observable<string> = this.store$.pipe(select(selectText));
 
   formFilter: FormGroup;
   activeCheckboxes: number;
@@ -35,7 +36,7 @@ export class ShipsFilterComponent implements OnInit {
     }).unsubscribe();
 
     this.checkbox$.subscribe(item => {
-      this.generateCheckboxForm(item);
+      this.addCheckboxFormGroup(item);
     }).unsubscribe();
 
     this.onChangeCheckbox();
@@ -44,18 +45,14 @@ export class ShipsFilterComponent implements OnInit {
   generateRadioForm(typeShipChecked: string): void {
 
     this.formFilter = new FormGroup({
-      // checkboxGroup: new FormGroup({
-      //   'Port Canaveral': new FormControl(true),
-      //   'Port of Los Angeles': new FormControl(true),
-      //   'Fort Lauderdale': new FormControl(false)
-      // }),
-      'radio-type': new FormControl(typeShipChecked)
+      'radio-type': new FormControl(typeShipChecked),
+      text: new FormControl()
     });
   }
 
-  generateCheckboxForm(checkboxes: string[]): void {
+  addCheckboxFormGroup(checkboxes: string[]): void {
 
-    function generateObj(portShips: string[], checkboxesLocal: string[]): object {
+    function generateObj(portShips: string[], checkboxesLocal: string[]): {[key: string]: AbstractControl} {
       const objLocal = {};
 
       for (const item of portShips) {
@@ -66,19 +63,38 @@ export class ShipsFilterComponent implements OnInit {
     }
 
     const obj = generateObj(this.portShips, checkboxes);
-    console.log(obj);
 
     this.formFilter.addControl('checkboxGroup', new FormGroup(obj));
   }
 
   onChangeCheckbox(): void {
-    this.activeCheckboxes = Object.values(this.formFilter.get('checkboxGroup').value).filter(item => item === true).length;
+
+    function generateStringArr(checkboxGroupValueLocal: {[key: string]: boolean}): string[] {
+      const stringArr = [];
+      for (const item in checkboxGroupValueLocal) {
+        if (checkboxGroupValueLocal[item] === true) {
+          stringArr.push(item);
+        }
+      }
+      return stringArr;
+    }
+
+    const checkboxGroupValue = this.formFilter.get('checkboxGroup').value;
+    this.activeCheckboxes = Object.values(checkboxGroupValue).filter(item => item === true).length;
     this.activatedCheckbox = this.activeCheckboxes !== 0;
+
+    const arrString = generateStringArr(checkboxGroupValue);
+    this.store$.dispatch(new FilterCheckboxAction(arrString));
   }
 
   onChangeRadio($event: MatRadioChange): void {
     const textRadio = $event.value;
     this.store$.dispatch(new FilterRadioAction(textRadio));
+  }
+
+  onChangeText($event: InputEvent): void {
+    const valueText = this.formFilter.get('text').value;
+    this.store$.dispatch(new FilterTextAction(valueText));
   }
 
 }

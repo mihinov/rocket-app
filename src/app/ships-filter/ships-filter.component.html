@@ -3,7 +3,7 @@
   <form class="filter__form" [formGroup]="formFilter">
 
     <div class="filter__search input-group">
-      <input class="input-text" type="text" placeholder="Название">
+      <input class="input-text" type="text" placeholder="Название" formControlName="text" (input)="onChangeText($event)">
       <div class="input-text-after"></div>
     </div>
 
@@ -25,25 +25,7 @@
 
         <div class="checkbox-group__line" [ngClass]='{
           active: activeCheckboxes !== 0
-        }'>
-
-        </div>
-
-        <!-- <div class="checkbox-input">
-          <mat-checkbox formControlName="Port Canaveral" (change)="onChangeCheckbox()">
-            Port Canaveral
-          </mat-checkbox>
-        </div>
-        <div class="checkbox-input">
-          <mat-checkbox formControlName="Port of Los Angeles" (change)="onChangeCheckbox()">
-            Port of Los Angeles
-          </mat-checkbox>
-        </div>
-        <div class="checkbox-input">
-          <mat-checkbox formControlName="Fort Lauderdale" (change)="onChangeCheckbox()">
-            Fort Lauderdale
-          </mat-checkbox>
-        </div> -->
+        }'></div>
 
         <div class="checkbox-input" *ngFor="let item of portShips">
           <mat-checkbox [formControlName]="item" (change)="onChangeCheckbox()">
