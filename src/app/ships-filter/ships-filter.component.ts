@@ -67,9 +67,6 @@ export class ShipsFilterComponent implements OnInit {
 
     const obj = generateObj(this.portShips, checkboxes);
     console.log(obj);
-    console.log(Object.values(item => {
-      console.log(item);
-    }));
 
     this.formFilter.addControl('checkboxGroup', new FormGroup(obj));
   }
