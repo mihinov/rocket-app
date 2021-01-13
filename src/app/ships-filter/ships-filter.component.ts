@@ -39,14 +39,17 @@ export class ShipsFilterComponent implements OnInit {
       this.addCheckboxFormGroup(item);
     }).unsubscribe();
 
+    this.text$.subscribe(item => {
+      this.addTextFormControl(item);
+    }).unsubscribe();
+
     this.onChangeCheckbox();
   }
 
   generateRadioForm(typeShipChecked: string): void {
 
     this.formFilter = new FormGroup({
-      'radio-type': new FormControl(typeShipChecked),
-      text: new FormControl()
+      'radio-type': new FormControl(typeShipChecked)
     });
   }
 
@@ -65,6 +68,10 @@ export class ShipsFilterComponent implements OnInit {
     const obj = generateObj(this.portShips, checkboxes);
 
     this.formFilter.addControl('checkboxGroup', new FormGroup(obj));
+  }
+
+  addTextFormControl(text: string): void {
+    this.formFilter.addControl('text', new FormControl(text));
   }
 
   onChangeCheckbox(): void {

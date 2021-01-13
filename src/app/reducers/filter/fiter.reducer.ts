@@ -7,31 +7,46 @@ export interface FilterState {
   text: string;
 }
 
-const initialState: FilterState = {
+const initializeState = (stateInitial: FilterState) => {
+  const stateNotParse = localStorage.getItem('state');
+  if (stateNotParse) {
+    const stateParse = JSON.parse(stateNotParse);
+    return stateParse;
+  } else {
+    return stateInitial;
+  }
+};
+
+const initialState: FilterState = initializeState({
   radio: 'High Speed Craft',
   checkbox: ['Port Canaveral', 'Port of Los Angeles'],
   text: '',
+});
+
+const retunStateAndAddLocaleStorage = (state: FilterState, storageStr: string = 'state') => {
+  localStorage.setItem(storageStr, JSON.stringify(state));
+  return state;
 };
 
 export const filterReducer = (state = initialState, action: FilterActions) => {
   switch (action.type) {
     case filterActionsType.checkbox:
-      return {
+      return retunStateAndAddLocaleStorage({
         ...state,
         checkbox: action.payload
-      };
+      });
     case filterActionsType.text:
-      return {
+      return retunStateAndAddLocaleStorage({
         ...state,
         text: action.payload
-      };
+      });
     case filterActionsType.radio:
-      return {
+      return retunStateAndAddLocaleStorage({
         ...state,
         radio: action.payload
-      };
+      });
     default: {
-      return state;
+      return retunStateAndAddLocaleStorage(state);
     }
   }
 };
