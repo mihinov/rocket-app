@@ -8,6 +8,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+
+import { environment } from '../environments/environment.prod';
+import { reducers, metaReducers } from './reducers/index';
+import { AppEffects } from './app.effects';
 
 import { AppComponent } from './app.component';
 import { ShipsListComponent } from './ships-list/ships-list.component';
@@ -16,10 +23,6 @@ import { LoaderComponent } from './shared/components/loader/loader.component';
 import { ShipsFilterComponent } from './ships-filter/ships-filter.component';
 import { PageShipsComponent } from './page-ships/page-ships.component';
 import { ShipDetailsComponent } from './ship-details/ship-details.component';
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment.prod';
-import { reducers, metaReducers } from './reducers/index';
 
 
 @NgModule({
@@ -41,6 +44,7 @@ import { reducers, metaReducers } from './reducers/index';
     MatCheckboxModule,
     ReactiveFormsModule,
     MatRadioModule,
+    EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),
     StoreModule.forRoot(reducers, {
       metaReducers,
@@ -49,6 +53,7 @@ import { reducers, metaReducers } from './reducers/index';
         strictActionImmutability: true
       }
     }),
+    EffectsModule.forFeature([AppEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [],

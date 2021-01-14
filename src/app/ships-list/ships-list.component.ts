@@ -26,7 +26,7 @@ export class ShipsListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.optionsPaginatorState$.subscribe(options => {
       this.getRecords(options);
-    }).unsubscribe();
+    });
   }
 
   getRecords(options: OptionsShips): void {
