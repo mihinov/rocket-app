@@ -2,7 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { ShipsListService } from './ships-list.service';
 import { Ship, OptionsShips, OptionsPaginator } from '../shared/interfaces';
-import { delay, map, tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
+import { Store, select } from '@ngrx/store';
+import { PaginatorState } from '../reducers/paginator/paginator.reducer';
+import { selectOptionsPaginator } from '../reducers/paginator/paginator.selector';
 
 @Component({
   selector: 'app-ships-list',
@@ -10,16 +13,20 @@ import { delay, map, tap } from 'rxjs/operators';
   styleUrls: ['./ships-list.component.scss'],
 })
 export class ShipsListComponent implements OnInit, OnDestroy {
-  constructor(private shipListService: ShipsListService) {}
 
+  optionsPaginatorState$: Observable<OptionsShips> = this.store$.pipe(select(selectOptionsPaginator));
   subs: Subscription;
   ships: Ship[];
   quantity: number;
   optionsPaginator: OptionsPaginator;
 
+  constructor(private shipListService: ShipsListService,
+              private store$: Store<PaginatorState>) {}
+
   ngOnInit(): void {
-    const optionsShips: OptionsShips = { offset: 0, limit: 5 };
-    this.getRecords(optionsShips);
+    this.optionsPaginatorState$.subscribe(options => {
+      this.getRecords(options);
+    }).unsubscribe();
   }
 
   getRecords(options: OptionsShips): void {

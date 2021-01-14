@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { OptionsShips, OptionsPaginator } from '../../shared/interfaces';
+import { Store } from '@ngrx/store';
+import { PaginatorState } from '../../reducers/paginator/paginator.reducer';
+import { PaginatorOptionsAction } from '../../reducers/paginator/paginator.actions';
 
 @Component({
   selector: 'app-ships-paginator',
@@ -8,7 +11,7 @@ import { OptionsShips, OptionsPaginator } from '../../shared/interfaces';
 })
 export class ShipsPaginatorComponent implements OnInit {
 
-  constructor() { }
+  constructor(private store$: Store<PaginatorState>) { }
 
   optionsPaginator: OptionsPaginator;
   isEnabledBack = false;
@@ -34,7 +37,9 @@ export class ShipsPaginatorComponent implements OnInit {
       optionsShips.offset -= optionsShips.limit;
       this.isEnabledBack = false;
       this.isEnabledForward = false;
+      this.updateOptionsInState(optionsShips);
       this.flipping.emit(optionsShips);
+
     }
   }
 
@@ -44,8 +49,13 @@ export class ShipsPaginatorComponent implements OnInit {
       optionsShips.offset += optionsShips.limit;
       this.isEnabledBack = false;
       this.isEnabledForward = false;
+      this.updateOptionsInState(optionsShips);
       this.flipping.emit(optionsShips);
     }
+  }
+
+  updateOptionsInState(options: OptionsShips): void {
+    this.store$.dispatch(new PaginatorOptionsAction(options));
   }
 
 }

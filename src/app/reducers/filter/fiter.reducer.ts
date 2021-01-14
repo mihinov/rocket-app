@@ -8,7 +8,7 @@ export interface FilterState {
 }
 
 const initializeState = (stateInitial: FilterState) => {
-  const stateNotParse = localStorage.getItem('state');
+  const stateNotParse = localStorage.getItem(filterNode);
   if (stateNotParse) {
     const stateParse = JSON.parse(stateNotParse);
     return stateParse;
@@ -23,7 +23,7 @@ const initialState: FilterState = initializeState({
   text: '',
 });
 
-const retunStateAndAddLocaleStorage = (state: FilterState, storageStr: string = 'state') => {
+const retunStateAndAddLocaleStorage = (state: FilterState, storageStr: string = filterNode) => {
   localStorage.setItem(storageStr, JSON.stringify(state));
   return state;
 };
