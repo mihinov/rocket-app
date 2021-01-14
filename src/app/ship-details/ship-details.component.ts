@@ -19,7 +19,14 @@ export class ShipDetailsComponent implements OnInit, OnDestroy {
               private activateRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.subs = this.shipDetailsService.getShipById('GOMSTREE').pipe(
+    this.activateRoute.params.subscribe(params => {
+      this.idPage = params.id;
+      this.getShip(this.idPage);
+    }).unsubscribe();
+  }
+
+  getShip(id: string): void {
+    this.subs = this.shipDetailsService.getShipById(id).pipe(
       mergeMap(item => item),
       tap(item => {
         this.ship = item;
@@ -28,10 +35,6 @@ export class ShipDetailsComponent implements OnInit, OnDestroy {
     .subscribe(item => {
       console.log(item);
     });
-
-    this.activateRoute.params.subscribe(params => {
-      this.idPage = params.id;
-    }).unsubscribe();
   }
 
   ngOnDestroy(): void {
