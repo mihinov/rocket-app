@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { ShipsAndQuantityResponse, ShipsAndQuantity} from '../shared/interfaces';
+import { ShipsAndQuantityResponse, ShipsAndQuantity, OptionsShipsAndFilter } from '../shared/interfaces';
 import { QuantityShips, OptionsShips, Ship, ShipsCollection } from '../shared/interfaces';
 
 @Injectable({
@@ -54,7 +54,8 @@ export class ShipsListService {
       .valueChanges.pipe(map((item) => item.data.ships));
   }
 
-  getShipsAndQuantity(options: OptionsShips): Observable<ShipsAndQuantity> {
+  getShipsAndQuantity(options: OptionsShipsAndFilter): Observable<ShipsAndQuantity> {
+
     const query = gql`
       query getShipsAndQuantity($limit: Int, $offset: Int) {
         ships(limit: $limit, offset: $offset) {

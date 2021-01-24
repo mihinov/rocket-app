@@ -1,6 +1,17 @@
 export interface OptionsShips {
-  limit?: number;
-  offset?: number;
+  limit: number;
+  offset: number;
+
+}
+
+export interface OptionsShipsAndFilter extends OptionsShips {
+  filter: FilterOptions;
+}
+
+export interface FilterOptions {
+  radio: string;
+  checkbox: string[];
+  text: string;
 }
 
 export interface QuantityShips {
@@ -42,3 +53,4 @@ export interface OptionsPaginator {
   currentPage: number;
   maxPage: number;
 }
+

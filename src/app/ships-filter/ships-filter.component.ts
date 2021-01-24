@@ -21,6 +21,7 @@ export class ShipsFilterComponent implements OnInit {
   formFilter: FormGroup;
   activeCheckboxes: number;
   activatedCheckbox: boolean;
+  activeCheckbox = false;
 
   typeShips: string[] = ['Barge', 'Cargo', 'High Speed Craft', 'Tug'];
 
@@ -102,6 +103,10 @@ export class ShipsFilterComponent implements OnInit {
   onChangeText($event: InputEvent): void {
     const valueText = this.formFilter.get('text').value;
     this.store$.dispatch(new FilterTextAction(valueText));
+  }
+
+  clickOnCheckbox($event: Event): void {
+    this.activeCheckbox = !this.activeCheckbox;
   }
 
 }

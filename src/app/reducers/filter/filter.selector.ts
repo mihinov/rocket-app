@@ -18,3 +18,7 @@ export const selectText = createSelector(
   (state: FilterState): string => state.text
 );
 
+export const selectAllFilterState = createSelector(
+  selectFilterFeature,
+  (state: FilterState): FilterState => state
+);

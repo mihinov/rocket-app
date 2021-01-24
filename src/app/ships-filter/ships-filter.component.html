@@ -9,7 +9,7 @@
 
     <div class="checkbox__container">
 
-      <div class="checkbox-port">
+      <div class="checkbox-port" (click)="clickOnCheckbox($event)">
         <div class="checkbox-port__subtitle">Порт</div>
         <div class="checkbox-port__text">
           <span *ngIf="activeCheckboxes !== 0; else noCheckboxes">
@@ -21,17 +21,23 @@
         </div>
       </div>
 
-      <div class="checkbox-group" formGroupName="checkboxGroup">
+      <div class="checkbox-group" formGroupName="checkboxGroup" [ngClass]="{
+        active: activeCheckbox
+      }">
 
-        <div class="checkbox-group__line" [ngClass]='{
-          active: activeCheckboxes !== 0
-        }'></div>
+        <div class="checkbox-group__padding">
 
-        <div class="checkbox-input" *ngFor="let item of portShips">
-          <mat-checkbox [formControlName]="item" (change)="onChangeCheckbox()">
-            {{ item }}
-          </mat-checkbox>
-        </div>
+          <div class="checkbox-group__line" [ngClass]='{
+            active: activeCheckboxes !== 0
+          }'></div>
+
+          <div class="checkbox-input" *ngFor="let item of portShips">
+            <mat-checkbox [formControlName]="item" (change)="onChangeCheckbox()">
+              {{ item }}
+            </mat-checkbox>
+          </div>
+
+        </div> <!-- .checkbox-group__padding -->
 
       </div> <!-- .checkbox-group -->
     </div> <!-- .checkbox__container -->
