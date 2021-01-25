@@ -57,14 +57,14 @@ export class ShipsListService {
   getShipsAndQuantity(options: OptionsShipsAndFilter): Observable<ShipsAndQuantity> {
 
     const query = gql`
-      query getShipsAndQuantity($shipLimit: Int, $shipOffset: Int, $shipName: String, $shipType: String) {
-        shipsResult(limit: $shipLimit, offset: $shipOffset, find: {name: $shipName, type: $shipType}) {
-          data {
-            id
-            home_port
-            name
-            type
-          }
+      query getShipsAndQuantity($limit: Int, $offset: Int) {
+        ships(limit: $limit, offset: $offset) {
+          home_port
+          type
+          name
+          id
+        }
+        shipsResult {
           result {
             totalCount
           }
@@ -76,17 +76,15 @@ export class ShipsListService {
       .watchQuery<ShipsAndQuantityResponse>({
         query,
         variables: {
-          shipLimit: options.limit,
-          shipOffset: options.offset,
-          shipName: options.filter.text,
-          shipType: options.filter.radio
+          limit: options.limit,
+          offset: options.offset,
         },
       })
       .valueChanges.pipe(
         map((item) => {
           const obj: ShipsAndQuantity = {
             quantity: item.data.shipsResult.result.totalCount,
-            ships: item.data.shipsResult.data,
+            ships: item.data.ships,
           };
           return obj;
         })
