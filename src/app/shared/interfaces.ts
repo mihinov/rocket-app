@@ -19,7 +19,6 @@ export interface QuantityShips {
 }
 
 export interface QuantityShipsResult {
-  data: Ship[];
   result: {
     totalCount: number
   };
