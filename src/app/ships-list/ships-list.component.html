@@ -3,7 +3,7 @@
 </h1>
 
 <div class="ship__container">
-  <div *ngIf="ships.length !== 0; else loader">
+  <div *ngIf="!loading; else loader">
     <div class="ship__item" *ngFor="let ship of ships">
       <a class="ship__title" [routerLink]="['ships/', ship.id]">
         <span>{{ ship.name }}</span>
@@ -22,6 +22,9 @@
         </div>
       </div>
     </div> <!-- .ship__item -->
+    <div *ngIf="ships.length === 0">
+      Ничего не найдено :(
+    </div>
   </div>
 
   <ng-template #loader>
