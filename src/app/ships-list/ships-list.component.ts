@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { ShipsListService } from './ships-list.service';
-import { Ship, OptionsShips, OptionsPaginator, OptionsShipsAndFilter, FilterOptions } from '../shared/interfaces';
-import { map, tap } from 'rxjs/operators';
+import { Ship, OptionsShips, OptionsPaginator, FilterOptions } from '../shared/interfaces';
+import { debounceTime, filter, map, tap } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { PaginatorState } from '../reducers/paginator/paginator.reducer';
 import { selectOptionsPaginator } from '../reducers/paginator/paginator.selector';
@@ -22,17 +22,26 @@ export class ShipsListComponent implements OnInit, OnDestroy {
   ships: Ship[];
   quantity: number;
   optionsPaginator: OptionsPaginator;
+  loading = true;
 
   constructor(private shipListService: ShipsListService,
               private storePaginator$: Store<PaginatorState>,
               private storeFilter$: Store<FilterState>) {}
 
   ngOnInit(): void {
-    this.optionsPaginatorState$.subscribe(options => {
+    this.optionsPaginatorState$.
+    pipe(
+      tap(() => {
+        this.loading = true;
+      }),
+      debounceTime(500)
+    )
+    .subscribe(options => {
 
       this.selectAllFilterState$.subscribe(
         filterState => {
           const optionsShipsAndFilter = Object.assign({filter: filterState}, options);
+          // console.log(optionsShipsAndFilter);
           this.getRecords(optionsShipsAndFilter);
         }
       ).unsubscribe();
@@ -40,18 +49,37 @@ export class ShipsListComponent implements OnInit, OnDestroy {
     });
   }
 
-  getRecords(options: OptionsShipsAndFilter): void {
+  getRecords(options: OptionsShips): void {
     this.ships = [];
     this.subs = this.shipListService
-      .getShipsAndQuantity(options)
+      .getShips(options)
       .pipe(
         tap((item) => {
-          this.quantity = item.quantity;
+
+          const filteredShipsByPort = item.ships.slice().filter(ship => {
+            let findShipByPortBoolean = false;
+
+            for (const port of options.filter.checkbox) {
+              if (ship.home_port === port) {
+                findShipByPortBoolean = true;
+                break;
+              }
+            }
+            if (options.filter.checkbox.length === 0) {
+              findShipByPortBoolean = true;
+            }
+
+            return findShipByPortBoolean;
+          });
+
+          item.ships = filteredShipsByPort;
+
         }),
-        map((item) => item.ships)
+        map((item) => item.ships),
       )
-      .subscribe((item) => {
-        this.ships = item;
+      .subscribe((ships) => {
+
+        this.quantity = ships.length;
         this.optionsPaginator = { // Опции для пагинатора
           quantity: this.quantity,
           options,
@@ -60,6 +88,10 @@ export class ShipsListComponent implements OnInit, OnDestroy {
           ),
           maxPage: Math.ceil(this.quantity / options.limit),
         };
+
+        this.ships = ships.slice(options.offset, options.offset + options.limit);
+
+        this.loading = false;
       });
   }
 

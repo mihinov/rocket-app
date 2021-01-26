@@ -15,12 +15,14 @@ export class ShipDetailsService {
       query getShipById($findStr: ID!) {
         ships(find: {id: $findStr}) {
           id
+          name
           home_port
           missions {
             name
           }
           type
           year_built
+          weight_kg
         }
       }
     `;

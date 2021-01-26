@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { ShipsAndQuantityResponse, ShipsAndQuantity, OptionsShipsAndFilter } from '../shared/interfaces';
 import { QuantityShips, OptionsShips, Ship, ShipsCollection } from '../shared/interfaces';
 
 @Injectable({
@@ -11,30 +10,31 @@ import { QuantityShips, OptionsShips, Ship, ShipsCollection } from '../shared/in
 export class ShipsListService {
   constructor(private apollo: Apollo) {}
 
-  getQuantityShips(): Observable<number> {
-    const query = gql`
-      query quantityShips {
-        shipsResult {
-          result {
-            totalCount
-          }
-        }
-      }
-    `;
+  // getQuantityShips(): Observable<number> {
+  //   const query = gql`
+  //     query quantityShips {
+  //       shipsResult {
+  //         result {
+  //           totalCount
+  //         }
+  //       }
+  //     }
+  //   `;
 
-    return this.apollo
-      .watchQuery<QuantityShips>({
-        query,
-      })
-      .valueChanges.pipe(
-        map((item) => item.data.shipsResult.result.totalCount)
-      );
-  }
+  //   return this.apollo
+  //     .watchQuery<QuantityShips>({
+  //       query,
+  //     })
+  //     .valueChanges.pipe(
+  //       map((item) => item.data.shipsResult.result.totalCount)
+  //     );
+  // }
 
-  getShips(options: OptionsShips): Observable<Ship[]> {
+  getShips(options: OptionsShips): Observable<ShipsCollection> {
+
     const query = gql`
-      query getShips($limit: Int, $offset: Int) {
-        ships(limit: $limit, offset: $offset) {
+      query getShips($findName: String, $findType: String) {
+        ships(find: {name: $findName, type: $findType}) {
           home_port
           type
           name
@@ -47,44 +47,14 @@ export class ShipsListService {
       .watchQuery<ShipsCollection>({
         query,
         variables: {
-          limit: options.limit,
-          offset: options.offset,
-        },
-      })
-      .valueChanges.pipe(map((item) => item.data.ships));
-  }
-
-  getShipsAndQuantity(options: OptionsShipsAndFilter): Observable<ShipsAndQuantity> {
-
-    const query = gql`
-      query getShipsAndQuantity($limit: Int, $offset: Int) {
-        ships(limit: $limit, offset: $offset) {
-          home_port
-          type
-          name
-          id
+          findName: options.filter.text,
+          findType: options.filter.radio
         }
-        shipsResult {
-          result {
-            totalCount
-          }
-        }
-      }
-    `;
-
-    return this.apollo
-      .watchQuery<ShipsAndQuantityResponse>({
-        query,
-        variables: {
-          limit: options.limit,
-          offset: options.offset,
-        },
       })
       .valueChanges.pipe(
         map((item) => {
-          const obj: ShipsAndQuantity = {
-            quantity: item.data.shipsResult.result.totalCount,
-            ships: item.data.ships,
+          const obj: ShipsCollection = {
+            ships: item.data.ships
           };
           return obj;
         })

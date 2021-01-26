@@ -1,11 +1,7 @@
 export interface OptionsShips {
   limit: number;
   offset: number;
-
-}
-
-export interface OptionsShipsAndFilter extends OptionsShips {
-  filter: FilterOptions;
+  filter?: FilterOptions;
 }
 
 export interface FilterOptions {
@@ -29,17 +25,15 @@ export interface Ship {
   name: string;
   type: string;
   home_port: string;
-  missions?: string[];
+  missions?: {
+    name: string;
+  }[];
   year_built?: string;
+  weight_kg?: number;
 }
 
 export interface ShipsCollection {
   ships: Ship[];
-}
-
-export interface ShipsAndQuantityResponse {
-  ships: Ship[];
-  shipsResult: QuantityShipsResult;
 }
 
 export interface ShipsAndQuantity {

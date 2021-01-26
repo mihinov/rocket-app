@@ -15,6 +15,8 @@ export class ShipDetailsComponent implements OnInit, OnDestroy {
   subs: Subscription;
   idPage: string;
   ship: Ship;
+  missionsText: string;
+
   constructor(private shipDetailsService: ShipDetailsService,
               private activateRoute: ActivatedRoute) { }
 
@@ -34,6 +36,7 @@ export class ShipDetailsComponent implements OnInit, OnDestroy {
     )
     .subscribe(item => {
       console.log(item);
+      this.missionsText = item.missions.map(mission => mission.name).join(', ');
     });
   }
 

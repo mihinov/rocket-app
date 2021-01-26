@@ -1,2 +1,50 @@
-<p>ship-details works!</p>
-{{ idPage }}
+<main>
+  <a routerLink="../" class="link-back">
+    <svg class="ship__arrow" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <path d="m37.379 12.552c-.799-.761-2.066-.731-2.827.069-.762.8-.73 2.066.069 2.828l15.342 14.551h-39.963c-1.104 0-2 .896-2 2s.896 2 2 2h39.899l-15.278 14.552c-.8.762-.831 2.028-.069 2.828.393.412.92.62 1.448.62.496 0 .992-.183 1.379-.552l17.449-16.62c.756-.755 1.172-1.759 1.172-2.828s-.416-2.073-1.207-2.862z"/>
+    </svg>
+    <span>Вернуться</span>
+  </a>
+
+  <div class="ship" *ngIf="ship">
+
+    <h1 class="ship__name">
+      {{ ship.name }}
+    </h1>
+
+    <div class="ship__grid-table grid-table">
+      <div class="grid-table__cell">
+        <div class="grid-table__name">Тип</div>
+        <div> {{ ship.type }} </div>
+      </div>
+      <div class="grid-table__cell">
+        <div class="grid-table__name">Порт</div>
+        <div> {{ ship.home_port }} </div>
+      </div>
+      <div class="grid-table__cell">
+        <div class="grid-table__name">Вес</div>
+        <div> {{ ship.weight_kg }} </div>
+      </div>
+      <div class="grid-table__cell">
+        <div class="grid-table__name">Год</div>
+        <div> {{ ship.year_built }} </div>
+      </div>
+    </div> <!-- .ship__grid-table grid-table -->
+
+    <div class="ship__missions missions">
+      <p>Миссии</p>
+
+      <div class="missions__text">
+        {{ missionsText }}
+      </div>
+
+    </div>
+
+  </div> <!-- .ship -->
+
+</main>
+
+<!-- <p>ship-details works!</p>
+<div *ngIf="ship">
+  {{ ship.name }}
+</div> -->
